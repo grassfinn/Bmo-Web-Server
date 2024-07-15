@@ -6,15 +6,14 @@ import { readFolder, randomIndex } from '../utils/utils.js';
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
-// const usbPath = `E:/`;
-// const seasonsPath = path.join(usbPath, 'Adventure Time Seasons');
-// const seasons = readFolder(seasonsPath);
-// const randomSeason = randomIndex(seasons);
-// const randomSeasonEpisodes = readFolder(path.join(seasonsPath, randomSeason));
-// const getRandomEpisode = randomIndex(randomSeasonEpisodes);
-// const episodePath = path.join(seasonsPath, randomSeason, getRandomEpisode);
-// let currentEp;
-// const filename = path.basename(randomEpisode);
+const usbPath = `E:/`;
+const seasonsPath = path.join(usbPath, 'Adventure Time Seasons');
+const seasons = readFolder(seasonsPath);
+const randomSeason = randomIndex(seasons);
+const randomSeasonEpisodes = readFolder(path.join(seasonsPath, randomSeason));
+const getRandomEpisode = randomIndex(randomSeasonEpisodes);
+const episodePath = path.join(seasonsPath, randomSeason, getRandomEpisode);
+const filename = path.basename(getRandomEpisode);
 
 // TODO
 // * Figure out best way for file management, pull from usb or store files on server
@@ -34,28 +33,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Read the file from the usb
 
 app.get('/random', (req, res) => {
-  const seasonsPath = path.join(__dirname, 'public', 'episodes');
-  const seasons = readFolder(seasonsPath);
-  const randomSeason = randomIndex(seasons);
-  const randomSeasonEpisodes = readFolder(path.join(seasonsPath, randomSeason));
-  const getRandomEpisode = randomIndex(randomSeasonEpisodes);
-  const episodePath = path.join(
-    'episodes',
-    randomSeason,
-    getRandomEpisode
-  );
-  console.log(episodePath)
-  // fs.readFile(episodePath, (err, data) => {
-  //   if (err) return console.log(err, 0);
-  //   const fileName = path.basename(episodePath);
-  //   const filePath = path.join(publicPath, 'episodes', path.basename(fileName));
 
-  //   // Then write
-  //   fs.writeFile(filePath, data, (err) => {
-  //     if (err) return console.log(err, 1);
-  //     console.log('Success!');
-  //   });
-  // });
+  fs.readFile(episodePath, (err, data) => {
+    if (err) return console.log(err, 0);
+    const fileName = path.basename(episodePath);
+    const filePath = path.join(publicPath, 'episodes', path.basename(fileName));
+
+    // Then write
+    fs.writeFile(filePath, data, (err) => {
+      if (err) return console.log(err, 1);
+      console.log('Success!');
+    });
+  });
 
   //? https://stackoverflow.com/questions/31461358/can-i-use-res-sendfile-and-res-json-together
   // You cant send a file and json at the same time
