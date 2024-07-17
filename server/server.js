@@ -20,6 +20,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(seasonsPath));
 // Read the file from the usb
 
+app.get('/', (req, res) => {
+  res.send("<h1>BMO CHOP!</h1>")
+})
+
 app.get('/random', (req, res) => {
   const seasonsPath = path.join(__dirname, 'public', 'episodes');
   const seasons = readFolder(seasonsPath);
@@ -36,7 +40,7 @@ app.get('/random', (req, res) => {
       path: episodePath,
     },
   };
-  res.sendFile(path.join(__dirname, 'public/index.html'), options);
+  res.sendFile(path.join(__dirname, '../client/index.html'), options);
 });
 
 app.listen(port, () => {

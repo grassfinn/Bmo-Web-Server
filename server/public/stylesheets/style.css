@@ -1,8 +1,108 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: 3px solid red;
 }
+:root {
+  --body: #63bda4;
+  --screen: #d9ffea;
+  --button-one: #62afb7;
+  --d-pad: #ffec47;
+  --big-button: #f20553;
+  --triangle-button: #54c7e2;
+  --small-circle-button: #7ac173;
+  --floppy-disk: #0e5d4a;
+}
+/* Empty Element needs a width and height property defined in order to  */
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+/* General */
+body {
+  min-height: 100vh;
+}
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+/* BMO */
+#bmo {
+  margin: 0 auto;
+  border-radius: 15px;
+  width: 90%;
+  min-height: 100vh;
+  background-color: var(--body);
+  border: 5px solid black;
+  position: relative;
+}
+
+.face {
+  margin: 0 auto;
+  width: 100%;
+  height: 55%;
+
+  position: absolute;
+  top: 1.5%;
+  /* Not sure if best */
+  /* display: flex; */
+}
+
+.screen {
+  width: 98%;
+  height: 100%;
+  margin: 0 auto;
+  background-color: var(--screen);
+  border: 3px solid black;
+  border-radius: 15px;
+  position: relative;
+}
+
+.eyes {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-evenly;
+  /* margin-top: 2em; */
+}
+
+.left-eye,
+.right-eye {
+  width: 4%;
+  height: 15%;
+  background-color: black;
+  border-radius: 50%;
+}
+.left-eye.blink,
+.right-eye.blink {
+  animation: blink 1.4s;
+}
+/* Body */
+
+.body {
+}
+
+/* Dpad */
+
+.d-pad {
+  width: 6%;
+  margin-top: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: black;
+}
+
+@keyframes blink {
+  90% {
+    transform: none;
+    animation-timing-function: ease-in;
+  }
+  93% {
+    transform: translateY(15px) scaleY(0);
+  }
+  100% {
+    animation-timing-function: ease-out;
+  }
 }

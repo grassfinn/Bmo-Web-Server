@@ -11,3 +11,5 @@ client.send();
 const episodePath = client.getResponseHeader('path');
 console.log(episodePath)
 document.querySelector('video').src = episodePath;
+// Next js
+// Helper functions for testing
