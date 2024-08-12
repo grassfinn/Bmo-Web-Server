@@ -1,7 +1,7 @@
-const bmo = document.querySelector('#bmo')
+const bmo = document.querySelector('#bmo');
 const leftEye = document.querySelector('.left-eye');
 const rightEye = document.querySelector('.right-eye');
-
+const buttons = document.getElementsByClassName('button');
 let intervalTime = 1000;
 let interval;
 function setEye() {
@@ -12,8 +12,7 @@ function setEye() {
   }, 1000);
 }
 
-bmo.style.height = window.innerHeight
-
+bmo.style.height = window.innerHeight;
 
 function randomBlinkDelay() {
   // * (max - min) + 2
@@ -21,7 +20,6 @@ function randomBlinkDelay() {
   intervalTime = delay;
   return intervalTime;
 }
-
 
 function blinkEyes(eyesArr) {
   eyesArr[1].animate(blink, blinkTiming).onfinish = eyesArr[1].animate(
@@ -52,21 +50,11 @@ const blinkTiming = {
   // iterations: 2,
 };
 
-// Blink
-
-// const blinkAnimation = eyes[0].animate(blink, blinkTiming);
-// while (true){
-
-// function animateEye() {
 const eyes = [leftEye, rightEye];
 function blinkEyes(eyesArr) {
-  // console.log('!!!!!!!!CALL!!!!!!!!!');
   let betweenBlinks = Math.floor(Math.random() * 5000);
   let blinkTime = Math.floor(Math.random() * 1000 + 700);
   let numBlinks = Math.random() > 0.8 ? 1 : 2;
-  // console.log(betweenBlinks);
-  // console.log(blinkTime);
-  // console.log(numBlinks);
 
   let animL = eyesArr[0].animate(blink, {
     duration: blinkTime,
@@ -76,17 +64,58 @@ function blinkEyes(eyesArr) {
     duration: blinkTime,
     iterations: numBlinks,
   });
-  // let anim = eyesArr[1].animate(blink, {duration: Math.floor(Math.random()*8000), iterations: Math.floor(Math.random()*2)})
   animL.onfinish = (r) => {
-    // console.dir(r)
-    // clearTimeout(tim)
-    // animL.cancel()
-    // animR.cancel()
     let tim = setTimeout(() => {
       blinkEyes(eyesArr);
     }, betweenBlinks);
-    // blinkEyes (eyesArr)
   };
-} 
-blinkEyes(eyes)
+}
 
+let code = [];
+function bmoTime(arr) {
+  const correct = [
+    'up',
+    'up',
+    'down',
+    'down',
+    'left',
+    'right',
+    'left',
+    'right',
+    'b',
+    'a',
+  ];
+  if (JSON.stringify(correct) === JSON.stringify(arr)) {
+    const song = new Audio(
+      './sounds/BMO (Adventure Time)__Dust_in_the_Wind_combined.wav'
+    );
+    song.play();
+    code = [];
+    return;
+  }
+}
+
+let flag = 'off';
+let timeout;
+
+function idleTimer(e) {
+  const [userPress] = e.target.classList;
+  code.push(userPress);
+  bmoTime(code);
+  if (flag === 'off') {
+    flag = 'on';
+    return (timeout = setTimeout(() => {
+      flag = 'off';
+      code = [];
+    }, 2500));
+  }
+  clearTimeout(timeout);
+  flag = 'off';
+  return idleTimer;
+}
+
+for (let button of buttons) {
+  button.addEventListener('click', idleTimer);
+}
+
+blinkEyes(eyes);

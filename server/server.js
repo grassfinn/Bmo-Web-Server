@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Read the file from the usb
 
 app.get('/', (req, res) => {
-  res.send("<h1>BMO CHOP!</h1>")
+  res.sendFile(path.join(__dirname, 'public','bmo.html'));
 })
 
 app.get('/random', (req, res) => {
