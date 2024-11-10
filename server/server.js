@@ -40,7 +40,7 @@ app.get('/random', (req, res) => {
       path: episodePath,
     },
   };
-  res.sendFile(path.join(__dirname, '../client/index.html'), options);
+  res.sendFile(path.join(publicPath, 'index.html'), options);
 });
 
 app.listen(port, () => {

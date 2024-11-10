@@ -10,6 +10,8 @@ client.send();
 
 const episodePath = client.getResponseHeader('path');
 console.log(episodePath)
-document.querySelector('video').src = episodePath;
+const videoElement = document.querySelector('video')
+videoElement.src = episodePath;
+document.querySelector('title').textContent = episodePath.split('-')[1]
 // Next js
 // Helper functions for testing
