@@ -1,3 +1,5 @@
+// Reference For Faces, etc...
+// https://www.cartoonnetworkhq.com/games/adventure-time-play-along-with-me/play
 const bmo = document.querySelector('#bmo');
 const leftEye = document.querySelector('.left-eye');
 const rightEye = document.querySelector('.right-eye');
@@ -21,12 +23,12 @@ function randomBlinkDelay() {
   return intervalTime;
 }
 
-function blinkEyes(eyesArr) {
-  eyesArr[1].animate(blink, blinkTiming).onfinish = eyesArr[1].animate(
-    blink,
-    blinkTiming
-  );
-}
+// function blinkEyes(eyesArr) {
+//   eyesArr[1].animate(blink, blinkTiming).onfinish = eyesArr[1].animate(
+//     blink,
+//     blinkTiming
+//   );
+// }
 
 const blink = [
   {
@@ -114,8 +116,15 @@ function idleTimer(e) {
   return idleTimer;
 }
 
-for (let button of buttons) {
-  button.addEventListener('click', idleTimer);
-}
+// Event Delegation
+window.addEventListener('click', (e) => {
+  if (e.target.classList.contains('button')){
+     return idleTimer(e)
+  }
+})
+
+// for (let button of buttons) {
+//   button.addEventListener('click', idleTimer);
+// }
 
 blinkEyes(eyes);
